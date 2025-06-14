@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Faculty Profile Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eef2f3;
+      padding: 20px;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="file"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px;
+      margin-top: 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .profile-card {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: none;
+    }
+
+    .profile-card img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 15px;
+    }
+
+    .profile-card h3 {
+      margin: 10px 0 5px;
+    }
+
+    .profile-card p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Faculty Profile Form</h2>
+
+  <form id="facultyForm">
+    <label for="name">Faculty Name:</label>
+    <input type="text" id="name" required>
+
+    <label for="dept">Department:</label>
+    <input type="text" id="dept" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" required>
+
+    <label for="photo">Upload Photo:</label>
+    <input type="file" id="photo" accept="image/*" required>
+
+    <input type="submit" value="Submit">
+  </form>
+
+  <div class="profile-card" id="outputCard">
+    <img id="outputPhoto" alt="Faculty Photo">
+    <h3 id="outputName"></h3>
+    <p><strong>Department:</strong> <span id="outputDept"></span></p>
+    <p><strong>Email:</strong> <span id="outputEmail"></span></p>
+  </div>
+
+  <script>
+    const form = document.getElementById('facultyForm');
+    const outputCard = document.getElementById('outputCard');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Get form data
+      const name = document.getElementById('name').value;
+      const dept = document.getElementById('dept').value;
+      const email = document.getElementById('email').value;
+      const photo = document.getElementById('photo').files[0];
+
+      if (photo) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('outputPhoto').src = e.target.result;
+        }
+        reader.readAsDataURL(photo);
+      }
+
+      // Set text output
+      document.getElementById('outputName').textContent = name;
+      document.getElementById('outputDept').textContent = dept;
+      document.getElementById('outputEmail').textContent = email;
+
+      outputCard.style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>
